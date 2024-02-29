@@ -14,7 +14,7 @@ public class Tache {
     private String titre;
     private String description;
     private String statut;
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "Europe/Paris")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
     @Column(name = "date_échéance")
     private Date date;
 

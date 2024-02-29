@@ -40,6 +40,13 @@ public class TacheController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/tache/{id}")
+    public ResponseEntity<Tache> getTacheById(@PathVariable(value = "id") Long id) {
+        Tache tache = tacheRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found Tache with id = " + id));
+
+        return new ResponseEntity<>(tache, HttpStatus.OK);
+    }
     @PostMapping("/createTache")
     public ResponseEntity<Tache> createTache(@RequestBody Tache tacheRequest) {
         try {

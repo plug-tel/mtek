@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import CreateTache from 'component/tache/CreateTache';
+import UpdateTache from 'component/tache/UpdateTache';
+import Home from 'pages/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="bg-sky-100 h-[200vh]">
+         <Router>
+          <Routes>
+          <Route exact  path="/" element={<Home/>}/>
+          <Route exact  path= '/createTache' element={<CreateTache/>}/>
+          <Route exact  path= '/updateTache/:id' element={<UpdateTache/>}/>
+          </Routes>
+          </Router>
+      </div>
   );
 }
 
