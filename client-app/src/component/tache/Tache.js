@@ -1,27 +1,22 @@
 import { useEffect, useState } from "react";
-
 import {
   CircularProgress,
   Container,
+  Grid,
   Stack,
-  Typography
+  Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import Header from "component/header/Header";
 import TacheList from "component/tache/TacheList";
-
-import { getAll, getAllTaches } from "actions/tache";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import TacheService from "services/TacheService";
 
-export default function Tache() 
-{
-  const dispatch = useDispatch();
+export default function Tache() {
   const [data, setData] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  const tutorials = useSelector(state => state.payload);
-  console.log("taches store",tutorials)
 
   useEffect(() => {
     retrieveTaches();
@@ -31,7 +26,7 @@ export default function Tache()
     TacheService.getAll()
       .then(
         (response) => {
-          console.log("data",response.data)
+          console.log("data", response.data);
           setData(response.data);
           setIsloading(false);
         },
@@ -49,7 +44,7 @@ export default function Tache()
       .catch((e) => {
         console.log(e);
       });
-    }
+  };
 
   useEffect(() => {
     if (Array.isArray(data)) {
@@ -78,13 +73,17 @@ export default function Tache()
           <CircularProgress size={50} />
         </Stack>
       ) : (
-        <Container>
+        <Container sx={{ py: 8 }} width="100%">
           {filteredResults.length === 0 ? (
-            <Stack direction="row" justifyContent="center"alignItems="center" >
-            <Typography variant="h4">No Data!</Typography>
-          </Stack>
+            <Stack direction="row" justifyContent="center" alignItems="center">
+              <Typography variant="h4">No Data!</Typography>
+            </Stack>
           ) : (
-            <TacheList filteredResults={filteredResults} />
+            <DndProvider backend={HTML5Backend}>
+              <Grid container spacing={4}>
+                <TacheList filteredResults={filteredResults} />
+              </Grid>
+            </DndProvider>
           )}
         </Container>
       )}

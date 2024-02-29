@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Box,
@@ -12,14 +11,15 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { updateTache } from "actions/tache";
+import CustomButtonGroup from "component/button/CustomButton";
+import NavBar from "component/navbar/NavBar";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import TacheService from "services/TacheService";
-import {getTacheById, updateTache } from "actions/tache";
-import NavBar from "component/navbar/NavBar";
-import CustomButtonGroup from "component/button/CustomButton";
 
 export default function UpdateTache() {
   const { id } = useParams();
@@ -45,7 +45,7 @@ export default function UpdateTache() {
   }, [id]);
 
   const retrieveTache = () => {
-   TacheService.getTacheById(id)
+    TacheService.getTacheById(id)
       .then((response) => {
         setCurrentTacheData(response.data);
       })
@@ -63,7 +63,6 @@ export default function UpdateTache() {
   };
   const handleChange = (event) => {
     setStatut(event.target.value);
-    
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -145,7 +144,7 @@ export default function UpdateTache() {
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <TextField
+                          <TextField
                             fullWidth
                             select
                             required
