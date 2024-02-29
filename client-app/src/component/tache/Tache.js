@@ -16,6 +16,8 @@ export default function Tache() {
   const [data, setData] = useState([]);
   const [isloading, setIsloading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
+  const [select, setSelect] = useState("");
+  const [date, setDate] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function Tache() {
     TacheService.getAll()
       .then(
         (response) => {
-          console.log("data", response.data);
+          console.log("data", response);
           setData(response.data);
           setIsloading(false);
         },
@@ -48,24 +50,50 @@ export default function Tache() {
 
   useEffect(() => {
     if (Array.isArray(data)) {
-      const filteredData =
-        data &&
-        data.filter((item) => {
-          return Object.values(item)
-            .join("")
-            .toLowerCase()
-            .includes(searchInput.toLowerCase());
-        });
-      console.log("filtreResults", filteredResults);
-      setFilteredResults(filteredData);
+      let filteredData = [...data];
+      console.log("newlist", filteredData)
+     if(searchInput) {
+     filteredData =
+      data &&
+      data.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+     }
+     if(select) {
+      filteredData =data &&
+      data.filter((item) => {
+        return Object.values(item)
+          .includes(select);
+      });
+     }
+     if(date) {
+      let newDate=date.replace('T', ' ')
+      console.log("newdate",newDate)
+      filteredData =data &&
+      data.filter((item) => {
+        return Object.values(item)
+          .includes(newDate);
+      });
+     }
+    
+     setFilteredResults(filteredData);
     }
-  }, [data, searchInput]);
+
+  }, [data,searchInput,select,date]);
+  
 
   return (
     <Container>
       <Header
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
+        handleChangeSelect={(e) => setSelect(e.target.value)} 
+        select={select}
+        date={date}
+        handleChangeDate={(e)=>setDate(e.target.value)}
       />
 
       {isloading ? (

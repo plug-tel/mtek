@@ -167,10 +167,7 @@ export default function UpdateTache() {
                             id="date"
                             type="datetime-local"
                             required
-                            inputProps={{
-                              step: 1,
-                            }}
-                            format="yyyy-MM-dd HH:mm:ss"
+                            format="yyyy-MM-dd HH:mm"
                             onChange={(e) =>
                               setDate(e.target.value.replace("T", " "))
                             }
