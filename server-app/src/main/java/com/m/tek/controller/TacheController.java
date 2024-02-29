@@ -5,7 +5,6 @@ import com.m.tek.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ public class TacheController {
     }
     @GetMapping("/tache/{id}")
     public ResponseEntity<Tache> getTacheById(@PathVariable(value = "id") Long id) {
+
         Tache tache = tacheRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found Tache with id = " + id));
 
@@ -49,6 +49,7 @@ public class TacheController {
     }
     @PostMapping("/createTache")
     public ResponseEntity<Tache> createTache(@RequestBody Tache tacheRequest) {
+
         try {
             Tache tache = tacheRepository
                     .save(new Tache(tacheRequest.getTitre(),tacheRequest.getDescription(), tacheRequest.getStatut(),tacheRequest.getDate()));
@@ -59,6 +60,7 @@ public class TacheController {
     }
     @PutMapping("/updateTache/{id}")
     public ResponseEntity<Tache> updateTache(@PathVariable("id") Long id, @RequestBody Tache tacheRequest) {
+
         Tache tache = tacheRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("tache " + id + "not found"));
 
@@ -71,6 +73,7 @@ public class TacheController {
     }
     @DeleteMapping("/deleteTache/{id}")
     public ResponseEntity<HttpStatus> deleteTache(@PathVariable("id") Long id) {
+
         tacheRepository.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
