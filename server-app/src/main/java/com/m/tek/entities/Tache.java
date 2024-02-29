@@ -3,6 +3,7 @@ package com.m.tek.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,14 +15,14 @@ public class Tache {
     private String titre;
     private String description;
     private String statut;
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",timezone = "UTC")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm",timezone = "UTC")
     @Column(name = "date_échéance")
-    private Date date;
+    private LocalDateTime date;
 
     public Tache() {
     }
 
-    public Tache(Long id, String titre, String description, String statut, Date date) {
+    public Tache(Long id, String titre, String description, String statut, LocalDateTime date) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -34,7 +35,7 @@ public class Tache {
         this.description = description;
         this.statut = statut;
     }
-    public Tache(String titre, String description, String statut, Date date) {
+    public Tache(String titre, String description, String statut, LocalDateTime date) {
         this.titre = titre;
         this.description = description;
         this.statut = statut;
@@ -73,11 +74,11 @@ public class Tache {
         this.statut = statut;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

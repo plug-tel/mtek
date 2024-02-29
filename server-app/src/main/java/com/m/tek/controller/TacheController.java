@@ -3,10 +3,12 @@ package com.m.tek.controller;
 import com.m.tek.entities.Tache;
 import com.m.tek.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +29,22 @@ public class TacheController {
                 taches = tacheRepository.findAll();
             else if(titre != null)
                 taches = tacheRepository.findTacheByTitre(titre);
-            else if( description != null)
+            else
                 taches = tacheRepository.findTacheByDescription(description);
-            else if( statut != null)
+
+            return new ResponseEntity<>(taches, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/findTache")
+    public ResponseEntity<?> getFilteredtache(@RequestParam(required = false) String statut,
+                                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime date) {
+
+        try {
+            List<Tache> taches = new ArrayList<Tache>();
+
+             if(statut != null)
                 taches = tacheRepository.findTacheByStatut(statut);
             else
                 taches = tacheRepository.findTacheByDate(date);
