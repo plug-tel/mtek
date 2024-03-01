@@ -1,4 +1,3 @@
-![mtekdemo](https://github.com/GmachMariem/mtek/assets/31019578/ca431d71-5b2d-436e-80b9-77c17198116d)
 <h1 align="center">
  Mtek
   <br>
