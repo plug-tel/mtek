@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -5,6 +8,7 @@ import {
   Container,
   CssBaseline,
   Grid,
+  InputBase,
   MenuItem,
   Paper,
   TextField,
@@ -14,28 +18,23 @@ import {
 import { updateTache } from "actions/tache";
 import CustomButtonGroup from "component/button/CustomButton";
 import NavBar from "component/navbar/NavBar";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
 import TacheService from "services/TacheService";
 
 export default function UpdateTache() {
   const { id } = useParams();
-  console.log("id", id);
   const dispatch = useDispatch();
   const form = useRef();
   const checkBtn = useRef();
   const navigate = useNavigate();
-
   const [date, setDate] = useState();
-  const [statut, setStatut] = useState();
   const [currentTacheData, setCurrentTacheData] = useState({
     titre: "",
     description: "",
     statut: "",
-    date: "",
+    date:""
   });
   const [loading, setLoading] = useState(false);
   const [messageSuccess, setMessageSuccess] = useState();
@@ -61,9 +60,7 @@ export default function UpdateTache() {
       [name]: value,
     });
   };
-  const handleChange = (event) => {
-    setStatut(event.target.value);
-  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,13 +71,13 @@ export default function UpdateTache() {
       var data = {
         titre: currentTacheData.titre,
         description: currentTacheData.description,
-        statut: statut,
+        statut: currentTacheData.statut,
         date: date,
       };
       dispatch(updateTache(id, data))
         .then(() => {
           setMessageSuccess("Tache modifié avec succée!");
-          setTimeout(() => navigate("/"), 1000);
+          setTimeout(() => navigate("/home"), 1000);
         })
         .catch(() => {
           setLoading(false);
@@ -91,7 +88,7 @@ export default function UpdateTache() {
   };
   const handelCancel = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/home");
   };
 
   return (
@@ -152,7 +149,7 @@ export default function UpdateTache() {
                             label="Statut"
                             name="statut"
                             value={currentTacheData.statut}
-                            onChange={handleChange}
+                            onChange={(e) => handleInputChange(e)}
                           >
                             <MenuItem value="">choisir statut</MenuItem>
                             <MenuItem value={"To Do"}>To Do</MenuItem>
@@ -160,18 +157,18 @@ export default function UpdateTache() {
                             <MenuItem value={"Doing"}>Doing</MenuItem>
                           </TextField>
                         </Grid>
+                       {console.log(currentTacheData.date)}
                         <Grid item xs={12} sm={6}>
                           <TextField
                             fullWidth
                             name="date"
                             id="date"
                             type="datetime-local"
-                            required
                             format="yyyy-MM-dd HH:mm"
+                            defaultValue={currentTacheData?.date}
                             onChange={(e) =>
                               setDate(e.target.value.replace("T", " "))
                             }
-                            value={currentTacheData.date}
                           />
                         </Grid>
                       </Grid>

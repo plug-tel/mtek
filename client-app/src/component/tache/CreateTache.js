@@ -14,6 +14,7 @@ import { create } from "actions/tache";
 import CustomButton from "component/button/CustomButton";
 import NavBar from "component/navbar/NavBar";
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CheckButton from "react-validation/build/button";
@@ -30,10 +31,8 @@ export default function CreateTache() {
   const [tacheData, setTacheData] = useState({
     titre: "",
     description: "",
-    statut: "",
-    date: "",
   });
-
+  const { user: currentUser } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
 
   const [messageSuccess, setMessageSuccess] = useState();
@@ -61,12 +60,10 @@ export default function CreateTache() {
         statut: statut,
         date: date,
       };
-      console.log("data", data.statut);
-      dispatch(create(data))
+      dispatch(create(data,currentUser.id))
         .then(() => {
-          console.log(tacheData, date);
           setMessageSuccess("Tache crée avec succée!");
-          setTimeout(() => navigate("/"), 1000);
+          setTimeout(() => navigate("/home"), 1000);
         })
         .catch(() => {
           setLoading(false);
@@ -79,7 +76,7 @@ export default function CreateTache() {
 
   const handelCancel = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/home");
   };
 
   return (
@@ -111,7 +108,7 @@ export default function CreateTache() {
                           <TextField
                             fullWidth
                             id="titre"
-                            label={"titre"}
+                            label="titre"
                             name="titre"
                             required
                             value={tacheData.titre}

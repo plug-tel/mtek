@@ -14,3 +14,9 @@ export const CREATE_TACHE ="CREATE_TACHE";
 export const RETRIEVE_TACHES = "RETRIEVE_TACHES";
 export const UPDATE_TACHE = "UPDATE_TACHE";
 export const DELETE_TACHE = "DELETE_TACHE";
+
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT = "LOGOUT";

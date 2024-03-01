@@ -19,7 +19,6 @@ import { changeBGColor, generateBackground } from "utils/functions";
 
 export default function TacheList({ filteredResults }) {
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,21 +49,11 @@ export default function TacheList({ filteredResults }) {
     setOpen(true);
   };
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(data);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setData(items);
-    console.log("Dragging...");
-  };
-
+ 
   return (
     <>
-      {filteredResults &&
-        filteredResults.map((data, index) => (
+      {
+        filteredResults?.map((data, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
             <Card
               sx={{
@@ -122,10 +111,9 @@ export default function TacheList({ filteredResults }) {
                     backgroundColor: changeBGColor(data.statut),
                     width: 200,
                   }}
-                  defaultValue={data.statut}
+                  value={data.statut}
                   disabled
                 ></TextField>
-
                 <IconButton
                   aria-label="edit"
                   size="medium"

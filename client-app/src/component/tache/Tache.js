@@ -11,6 +11,7 @@ import TacheList from "component/tache/TacheList";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TacheService from "services/TacheService";
+import { useSelector } from "react-redux";
 
 export default function Tache() {
   const [data, setData] = useState([]);
@@ -19,16 +20,17 @@ export default function Tache() {
   const [select, setSelect] = useState("");
   const [date, setDate] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const { user: currentUser } = useSelector(state=>state.auth);
 
   useEffect(() => {
     retrieveTaches();
   }, []);
 
   const retrieveTaches = () => {
-    TacheService.getAll()
+
+    TacheService.getAll(currentUser.id)
       .then(
         (response) => {
-          console.log("data", response);
           setData(response.data);
           setIsloading(false);
         },
@@ -43,15 +45,12 @@ export default function Tache() {
           setData(_content);
         }
       )
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
   useEffect(() => {
     if (Array.isArray(data)) {
       let filteredData = [...data];
-      console.log("newlist", filteredData)
+      
      if(searchInput) {
      filteredData =
       data &&
@@ -63,16 +62,20 @@ export default function Tache() {
       });
      }
      if(select) {
-      filteredData =data &&
+
+      filteredData =
+      data &&
       data.filter((item) => {
         return Object.values(item)
           .includes(select);
       });
+      
      }
      if(date) {
       let newDate=date.replace('T', ' ')
-      console.log("newdate",newDate)
-      filteredData =data &&
+      
+      filteredData =
+      data &&
       data.filter((item) => {
         return Object.values(item)
           .includes(newDate);
@@ -107,11 +110,9 @@ export default function Tache() {
               <Typography variant="h4">No Data!</Typography>
             </Stack>
           ) : (
-            <DndProvider backend={HTML5Backend}>
               <Grid container spacing={4}>
                 <TacheList filteredResults={filteredResults} />
               </Grid>
-            </DndProvider>
           )}
         </Container>
       )}
