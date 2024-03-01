@@ -1,10 +1,12 @@
 package com.m.tek.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "taches")
@@ -18,16 +20,20 @@ public class Tache {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm",timezone = "UTC")
     @Column(name = "date_échéance")
     private LocalDateTime date;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user ;
 
     public Tache() {
     }
 
-    public Tache(Long id, String titre, String description, String statut, LocalDateTime date) {
+    public Tache(Long id, String titre, String description, String statut) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.statut = statut;
-        this.date = date;
     }
 
     public Tache(String titre, String description, String statut) {
@@ -80,5 +86,13 @@ public class Tache {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

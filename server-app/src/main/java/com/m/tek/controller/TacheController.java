@@ -1,96 +1,84 @@
 package com.m.tek.controller;
 
+import com.m.tek.dto.TacheDTO;
 import com.m.tek.entities.Tache;
 import com.m.tek.repository.TacheRepository;
+
+import com.m.tek.services.TacheSevice;
+import jakarta.persistence.EntityNotFoundException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/tache")
 public class TacheController {
+
+    @Autowired
+    private TacheSevice tacheService;
+    private static Logger logger = LogManager.getLogger(TacheController.class);
     @Autowired
     TacheRepository tacheRepository;
-    @GetMapping("/allTache")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) String titre,@RequestParam(required = false) String description,@RequestParam(required = false) String statut,@RequestParam(required = false) Date date) {
 
-        try {
-            List<Tache> taches = new ArrayList<Tache>();
+    @GetMapping("/allTaches/{userId}")
+    public ResponseEntity<List<TacheDTO>> getAll(@PathVariable(value = "userId") Long userId){
+        final List<TacheDTO> tacheDTOList = tacheService.getAll(userId);
 
-            if (titre == null && description == null && statut ==null && date ==null  )
-                taches = tacheRepository.findAll();
-            else if(titre != null)
-                taches = tacheRepository.findTacheByTitre(titre);
-            else
-                taches = tacheRepository.findTacheByDescription(description);
-
-            return new ResponseEntity<>(taches, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(tacheDTOList, HttpStatus.OK);
     }
-    @GetMapping("/findTache")
-    public ResponseEntity<?> getFilteredtache(@RequestParam(required = false) String statut,
-                                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime date) {
+    @GetMapping("/allTachesByCriteria/{userId}")
+    public ResponseEntity<List<TacheDTO>> filterTaches(@PathVariable(value = "userId") Long userId,
+                                                       @RequestParam(required = false) String titre, @RequestParam(required = false) String description,
+                                                       @RequestParam(required = false) String statut,
+                                                       @RequestParam(required = false) LocalDateTime date){
+        final List<TacheDTO> tacheDTOList = tacheService.getTaches(userId,titre,description,statut,date);
 
-        try {
-            List<Tache> taches = new ArrayList<Tache>();
-
-             if(statut != null)
-                taches = tacheRepository.findTacheByStatut(statut);
-            else
-                taches = tacheRepository.findTacheByDate(date);
-
-            return new ResponseEntity<>(taches, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(tacheDTOList, HttpStatus.OK);
     }
+
     @GetMapping("/tache/{id}")
-    public ResponseEntity<Tache> getTacheById(@PathVariable(value = "id") Long id) {
-
-        Tache tache = tacheRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Not found Tache with id = " + id));
-
-        return new ResponseEntity<>(tache, HttpStatus.OK);
-    }
-    @PostMapping("/createTache")
-    public ResponseEntity<Tache> createTache(@RequestBody Tache tacheRequest) {
-
-        try {
-            Tache tache = tacheRepository
-                    .save(new Tache(tacheRequest.getTitre(),tacheRequest.getDescription(), tacheRequest.getStatut(),tacheRequest.getDate()));
-            return new ResponseEntity<>(tache, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> getById(@PathVariable Long id){
+        final TacheDTO tacheDto = tacheService.findById(id);
+        if(tacheDto == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        return new ResponseEntity<>(tacheDto, HttpStatus.OK);
     }
+
+    @PostMapping("/createTache/{userId}")
+    public ResponseEntity<Tache> create(@PathVariable(value = "userId") Long userId,@RequestBody TacheDTO request){
+        Optional<Tache> tache = tacheService.create(userId,request);
+
+        if(!tache.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(tache.get(), HttpStatus.CREATED);
+    }
+
     @PutMapping("/updateTache/{id}")
-    public ResponseEntity<Tache> updateTache(@PathVariable("id") Long id, @RequestBody Tache tacheRequest) {
+    public Optional<Tache> updateTache(@RequestBody TacheDTO tacheRequest, @PathVariable("id") Long tacheID) {
 
-        Tache tache = tacheRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("tache " + id + "not found"));
-
-        tache.setTitre(tacheRequest.getTitre());
-        tache.setDescription(tacheRequest.getDescription());
-        tache.setStatut(tacheRequest.getStatut());
-        tache.setDate(tacheRequest.getDate());
-
-        return new ResponseEntity<>(tacheRepository.save(tache), HttpStatus.OK);
+        return tacheService.update(tacheRequest,tacheID);
     }
+
     @DeleteMapping("/deleteTache/{id}")
-    public ResponseEntity<HttpStatus> deleteTache(@PathVariable("id") Long id) {
-
-        tacheRepository.deleteById(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteTacheById(@PathVariable Long id){
+        try{
+            tacheService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
