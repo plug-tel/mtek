@@ -20,11 +20,26 @@
 </p>
 
 <p align="center">
+ <a href="#what is the Use of This Repo">What is the Use of This Repo</a> •
   <a href="#what is the project about?">What is the project about?</a> •
   <a href="#how-to-use">How To Use</a> •
+  <a href="#references">References</a> •
 </p>
 
 ![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
+
+# What is the Use of This Repo
+This App is a Simple ReactJS and Springboot 2 App which uses
+
+1. ReactJS
+ * React Functional Components
+ * HTTP Client using axios Library
+ * Basic react Routing
+ * React MaterielUi
+2. SpringBoot 2
+ * Springboot RestController
+ * Service, Repository from Spring Framework
+ * Autowiring is used as well to inject the Dependencies
 
 # What is the project about?
 
@@ -61,4 +76,19 @@ after creation done with success you will redirect to /home , where you can add 
 ## To run Unit testing
 go to the  server-app\src\test\java\com\m\tek\controller\TacheControllerTest.java
 and run the tests.
+
+# References
+
+**create-react-app** : The following link has all the commands that can be used with create-react-app
+https://github.com/facebook/create-react-app
+
+**ReactJS** : Refer to https://reactjs.org/ to understand the concepts of ReactJS
+
+**React MaterialUi** : Refer to https://mui.com/material-ui/getting-started/ to understand how to use React Mui
+
+**Springboot** : Refer to https://spring.io/guides/gs/rest-service/ to build REST service using Springboot
+
+**axios** : Refer to https://www.npmjs.com/package/axios to know more about how to use axios library to make http requests
+
+
 
