@@ -21,37 +21,20 @@
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
+  <a href="#what is the project about?">What is the project about?</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#download">Download</a> •
   
 </p>
 
 ![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
-
-## Key Features
-
-* LivePreview - Make changes, See changes
-  - Instantly see what your Markdown documents look like in HTML as you create them.
-* Sync Scrolling
-  - While you type, LivePreview will automatically scroll to the current location you're editing.
-* GitHub Flavored Markdown  
-* Syntax highlighting
-* [KaTeX](https://khan.github.io/KaTeX/) Support
-* Dark/Light mode
-* Toolbar for basic Markdown formatting
-* Supports multiple cursors
-* Save the Markdown preview as PDF
-* Emoji support in preview :tada:
-* App will keep alive in tray for quick usage
-* Full screen mode
-  - Write distraction free.
-* Cross platform
-  - Windows, macOS and Linux ready.
+## What is the project about?
+A custom web application that would help better organize and manage daily tasks.
 
 ## How To Use
 
 # Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
+$ git clone https://github.com/GmachMariem/mtek
 
 # Go into the repository
 $ cd mtek
@@ -60,21 +43,21 @@ In the master branch, you have two different folders, client (the React app) and
 
 The applications can be examined separately. 
 
+# create a database in phpmyadmin with name: mtek
+
+# Run the server app in intellijIde
+
 You may run the React client:
 
 # Install dependencies
 $ npm install
 
-# Run the app
+# Run the client app
 $ npm start
 
-You may run the API server with :
+# Go to http://localhost:3000/SignUp 
+create a new user 
+after creation done with success you will redirect to /home , where you can add new task, update you tasks or delete them.
+
 
 ```
-
-## Credits
-
-This software uses the following open source packages:
-
-
-
