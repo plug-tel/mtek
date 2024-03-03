@@ -22,8 +22,6 @@
 <p align="center">
   <a href="#what is the project about?">What is the project about?</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
-  
 </p>
 
 ![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
@@ -60,5 +58,3 @@ $ npm start
 create a new user with username, email and a password
 after creation done with success you will redirect to /home , where you can add new task, update you tasks or delete them.
 
-
-```
