@@ -20,7 +20,6 @@
 </p>
 
 <p align="center">
-  <a href="#key-features">Key Features</a> •
   <a href="#what is the project about?">What is the project about?</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#download">Download</a> •
@@ -28,7 +27,9 @@
 </p>
 
 ![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
+
 ## What is the project about?
+
 A custom web application that would help better organize and manage daily tasks.
 
 ## How To Use
