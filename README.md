@@ -57,7 +57,7 @@ $ npm install
 $ npm start
 
 # Go to http://localhost:3000/SignUp 
-create a new user 
+create a new user with username, email and a password
 after creation done with success you will redirect to /home , where you can add new task, update you tasks or delete them.
 
 
