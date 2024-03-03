@@ -26,35 +26,35 @@
 
 ![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
 
-## What is the project about?
+# What is the project about?
 
 A custom web application that would help better organize and manage daily tasks.
 
-## How To Use
+# How To Use
 
-# Clone this repository
+## Clone this repository
 $ git clone https://github.com/GmachMariem/mtek
 
-# Go into the repository
+## Go into the repository
 $ cd mtek
 
 In the master branch, you have two different folders, client (the React app) and server (an SpringBoot application offering REST API endpoints).
 
 The applications can be examined separately. 
 
-# create a database in phpmyadmin with name: mtek
+## create a database in phpmyadmin with name: mtek
 
-# Run the server app in intellijIde
+## Run the server app in intellijIde
 
 You may run the React client:
 
-# Install dependencies
+## Install dependencies
 $ npm install
 
-# Run the client app
+## Run the client app
 $ npm start
 
-# Go to http://localhost:3000/SignUp 
+## Go to http://localhost:3000/Signup 
 create a new user with username, email and a password
 after creation done with success you will redirect to /home , where you can add new task, update you tasks or delete them.
 
