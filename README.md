@@ -58,3 +58,7 @@ $ npm start
 create a new user with username, email and a password
 after creation done with success you will redirect to /home , where you can add new task, update you tasks or delete them.
 
+## To run Unit testing
+go to the  server-app\src\test\java\com\m\tek\controller\TacheControllerTest.java
+and run the tests.
+
