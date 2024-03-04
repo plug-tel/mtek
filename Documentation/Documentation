@@ -1,0 +1,26 @@
+Application de gestion des taches permet de gerer vos tache.
+
+Guide d'utilisation:
+
+Télécharger et installer wampServer pour utliser Mysql comme base de donnée
+et creer une base de donnée mtek
+
+Télécharger et installer intellijIde pour executer la partie server-Application
+Télécharger et installer vsCode pour executer la partie client
+
+on github essayer de cloner le projet via git cloner et puis cd mtek pour accerder au projet 
+Dans la branche master vous allez trouver les deux partie client et server
+
+Avec intellijIde ouvir et executer la partie server-app
+Toute invocation d'une api a éte tracée par des logs(log4g)
+
+Avec vsCode ouvrir client app et run npm install puis npm start 
+l'application sera ouvert dans votre navigateur http://localhost:3000/
+
+la page de login s'affiche , veuillez cliquer sur signup pour créer un nouveau utlisateur
+et aprés veuillex saisir votre email et password pour se connecter
+
+La page home s'affiche , donc ajouter vos taches , vous pouvez les modifier , supprimer ou bien rechercher par critére.
+
+
+Containérisation de l'application est faite avec Docker.
