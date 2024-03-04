@@ -33,15 +33,18 @@ public class TacheController {
     @GetMapping("/allTaches/{userId}")
     public ResponseEntity<List<TacheDTO>> getAll(@PathVariable(value = "userId") Long userId){
         final List<TacheDTO> tacheDTOList = tacheService.getAll(userId);
-
+        logger.info("Getting all taches with userId: {}, and data: {}", userId, tacheDTOList);
         return new ResponseEntity<>(tacheDTOList, HttpStatus.OK);
     }
-    @GetMapping("/allTachesByCriteria/{userId}")
-    public ResponseEntity<List<TacheDTO>> filterTaches(@PathVariable(value = "userId") Long userId,
-                                                       @RequestParam(required = false) String titre, @RequestParam(required = false) String description,
-                                                       @RequestParam(required = false) String statut,
-                                                       @RequestParam(required = false) LocalDateTime date){
-        final List<TacheDTO> tacheDTOList = tacheService.getTaches(userId,titre,description,statut,date);
+    @GetMapping("/allTachesByCriteria")
+    public ResponseEntity<List<TacheDTO>> filterTaches(@RequestParam(required = false) String titre,
+                                                       @RequestParam(required = false) String description,
+                                                       @RequestParam(required = false) String statut
+                                                       ){
+
+        final List<TacheDTO> tacheDTOList = tacheService.getTaches(titre,description,statut);
+
+        logger.info("Getting all taches by specific creteria  {}", tacheDTOList);
 
         return new ResponseEntity<>(tacheDTOList, HttpStatus.OK);
     }
@@ -60,16 +63,14 @@ public class TacheController {
     public ResponseEntity<Tache> create(@PathVariable(value = "userId") Long userId,@RequestBody TacheDTO request){
         Optional<Tache> tache = tacheService.create(userId,request);
 
-        if(!tache.isPresent()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        logger.info("new tache was created", tache);
         return new ResponseEntity<>(tache.get(), HttpStatus.CREATED);
     }
 
     @PutMapping("/updateTache/{id}")
-    public Optional<Tache> updateTache(@RequestBody TacheDTO tacheRequest, @PathVariable("id") Long tacheID) {
-
-        return tacheService.update(tacheRequest,tacheID);
+    public ResponseEntity<Tache> updateTache(@RequestBody TacheDTO tacheRequest, @PathVariable("id") Long tacheID) {
+        Optional<Tache> tache = tacheService.update(tacheRequest,tacheID);
+        return new ResponseEntity<>(tache.get(),HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteTache/{id}")

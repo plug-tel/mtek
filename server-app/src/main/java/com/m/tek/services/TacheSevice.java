@@ -27,7 +27,7 @@ public class TacheSevice {
 
         final List<TacheDTO> tacheDTOList = new ArrayList<TacheDTO>();
 
-        tacheRepository.findByUserId(userId)
+        tacheRepository.findTacheByUserId(userId)
                     .forEach(tache -> {
 
                         TacheDTO tacheDto = new TacheDTO();
@@ -47,86 +47,22 @@ public class TacheSevice {
         return tacheDTOList;
     }
     @Transactional(readOnly = true)
-    public List<TacheDTO> getTaches(Long userId, String titre, String description, String statut, LocalDateTime date) {
+    public List<TacheDTO> getTaches(String titre, String description, String statut ) {
 
         final List<TacheDTO> tacheDTOList = new ArrayList<TacheDTO>();
 
-        if (titre == null && description == null && statut ==null && date ==null  )
-            tacheRepository.findByUserId(userId)
-                    .forEach(tache -> {
-
-                        TacheDTO tacheDto = new TacheDTO();
-                        if(tache != null){
-                            tacheDto.setId(tache.getId());
-                            tacheDto.setTitre(tache.getTitre());
-                            tacheDto.setDescription(tache.getDescription());
-                            tacheDto.setStatut(tache.getStatut());
-                            tacheDto.setDate(tache.getDate());
-                        }
-                        tacheDTOList.add(tacheDto);
-
-                    });
-        else if(titre != null)
-            tacheRepository.findTacheByTitre(titre)
-                    .forEach(tache -> {
-
-                        TacheDTO tacheDto = new TacheDTO();
-                        if(tache != null){
-                            tacheDto.setId(tache.getId());
-                            tacheDto.setTitre(tache.getTitre());
-                            tacheDto.setDescription(tache.getDescription());
-                            tacheDto.setStatut(tache.getStatut());
-                            tacheDto.setDate(tache.getDate());
-                        }
-                        tacheDTOList.add(tacheDto);
-
-                    });
-        else if(description != null)
-            tacheRepository.findTacheByDescription(description)
-                    .forEach(tache -> {
-
-                        TacheDTO tacheDto = new TacheDTO();
-                        if(tache != null){
-                            tacheDto.setId(tache.getId());
-                            tacheDto.setTitre(tache.getTitre());
-                            tacheDto.setDescription(tache.getDescription());
-                            tacheDto.setStatut(tache.getStatut());
-                            tacheDto.setDate(tache.getDate());
-                        }
-                        tacheDTOList.add(tacheDto);
-
-                    });
-        else if(statut != null)
-            tacheRepository.findTacheByStatut(statut)
-                    .forEach(tache -> {
-
-                        TacheDTO tacheDto = new TacheDTO();
-                        if(tache != null){
-                            tacheDto.setId(tache.getId());
-                            tacheDto.setTitre(tache.getTitre());
-                            tacheDto.setDescription(tache.getDescription());
-                            tacheDto.setStatut(tache.getStatut());
-                            tacheDto.setDate(tache.getDate());
-                        }
-                        tacheDTOList.add(tacheDto);
-
-                    });
-        else if(date != null)
-            tacheRepository.findTacheByDate(date)
-                    .forEach(tache -> {
-
-                        TacheDTO tacheDto = new TacheDTO();
-                        if(tache != null){
-                            tacheDto.setId(tache.getId());
-                            tacheDto.setTitre(tache.getTitre());
-                            tacheDto.setDescription(tache.getDescription());
-                            tacheDto.setStatut(tache.getStatut());
-                            tacheDto.setDate(tache.getDate());
-                        }
-                        tacheDTOList.add(tacheDto);
-
-                    });
-
+                tacheRepository.findTacheByCreteria(titre,description,statut)
+                        .forEach(tachef -> {
+                            TacheDTO tacheDto = new TacheDTO();
+                            if (tachef != null) {
+                                tacheDto.setId(tachef.getId());
+                                tacheDto.setTitre(tachef.getTitre());
+                                tacheDto.setDescription(tachef.getDescription());
+                                tacheDto.setStatut(tachef.getStatut());
+                                tacheDto.setDate(tachef.getDate());
+                            }
+                            tacheDTOList.add(tacheDto);
+                        });
         return tacheDTOList;
     }
     @Transactional
@@ -148,7 +84,7 @@ public class TacheSevice {
     @Transactional
     public Optional<Tache> update(TacheDTO request, Long tacheId){
        Tache tache = tacheRepository.findById(tacheId)
-                .orElseThrow(() -> new RuntimeException("Livreur not found"));;
+                .orElseThrow(() -> new RuntimeException("Tache not found"));;
 
         tache.setTitre(request.getTitre());
         tache.setDescription(request.getDescription());
