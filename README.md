@@ -14,7 +14,7 @@
   <a href="#references">References</a> •
 </p>
 
-![screenshot](https://github.com/GmachMariem/mtek/blob/master/mtekdemo.gif)
+![screenshot](https://github.com/plug-tel/mtek)
 
 # What is the Use of This Repo
 This App is a Simple ReactJS and Springboot 2 App which uses
