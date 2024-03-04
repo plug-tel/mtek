@@ -35,7 +35,7 @@ A custom web application that would help better organize and manage daily tasks.
 # How To Use
 
 ## Clone this repository
-$ git clone https://github.com/GmachMariem/mtek
+$ git clone https://github.com/plug-tel/mtek
 
 ## Go into the repository
 $ cd mtek
