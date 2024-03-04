@@ -8,8 +8,6 @@ import {
 } from "@mui/material";
 import Header from "component/header/Header";
 import TacheList from "component/tache/TacheList";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import TacheService from "services/TacheService";
 import { useSelector } from "react-redux";
 

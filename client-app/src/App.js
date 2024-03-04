@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/createTache" element={<CreateTache/>}/>
         <Route exact path ="/updateTache/:id" element={<UpdateTache/>}/>
       </Route>
-      <Route exact path="/Login" element={<SignIn/>}/>
+      <Route exact path="/" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route exact path="/resetPassword" element={<ResetPassword/>}/>

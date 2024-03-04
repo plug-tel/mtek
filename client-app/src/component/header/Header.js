@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import PropTypes from "prop-types";
 import Search from "../search/Search";
-//import SearchBar from "../../components/collections/SearchBar"
+
 
 function Header({ value, onChange, handleChangeSelect, select,date,handleChangeDate }) {
   return (

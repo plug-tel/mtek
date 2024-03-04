@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { AppBar, Avatar, Divider, Drawer, IconButton, ListItemIcon, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Divider, Drawer, IconButton,Toolbar, Typography } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
 import { changeBGColor } from "utils/functions";
@@ -14,7 +14,7 @@ function NavBar() {
 
   const logOut = useCallback(() => {
       dispatch(logout());
-      navigate("/Login");
+      navigate("/");
     
   }, [dispatch]);
 

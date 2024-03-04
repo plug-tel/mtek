@@ -8,7 +8,6 @@ import {
   Container,
   CssBaseline,
   Grid,
-  InputBase,
   MenuItem,
   Paper,
   TextField,

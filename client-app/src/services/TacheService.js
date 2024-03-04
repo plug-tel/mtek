@@ -5,8 +5,8 @@ class TacheService {
   getAll(userId) {
     return http.get(`/tache/allTaches/${userId}`,{ headers: AuthHeader() })
   }
-  filterData(userId) {
-    return http.get(`/tache/allTache/${userId}`,{ headers: AuthHeader() })
+  filterData() {
+    return http.get('/tache/allTachesByCriteria',{ headers: AuthHeader() })
   }
   getTacheById(tacheId) {
     return http.get(`/tache/tache/${tacheId}`,{ headers: AuthHeader() })
