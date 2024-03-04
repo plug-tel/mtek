@@ -6,7 +6,6 @@
 <h4 align="center">Application de Gestion de Tâches pour M. TEK</h4>
 
 
-
 <p align="center">
  <a href="#what is the Use of This Repo">What is the Use of This Repo</a> •
   <a href="#what is the project about?">What is the project about?</a> •
@@ -14,7 +13,7 @@
   <a href="#references">References</a> •
 </p>
 
-![screenshot](https://github.com/plug-tel/mtek)
+![screenshot](https://github.com/plug-tel/mtek/blob/master/mtekdemo.gif)
 
 # What is the Use of This Repo
 This App is a Simple ReactJS and Springboot 2 App which uses
